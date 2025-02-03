@@ -58,6 +58,9 @@ def read_datetime_from_fileline(in_line: str):
 def get_time_from_log_line(in_log : Path, read_line: str):
     # Read the time of a specific line in the log file. If not log exists or the entry is not there, returns "-"
 
+    if not in_log.exists():
+        return "--"
+    
     with open(in_log) as in_file:
         for line in in_file:
             if read_line in line:
@@ -128,6 +131,7 @@ def scan_dirs_for_benchmarks(in_dir_str: str, purge_dirs: bool = False):
         print_value = "-"
         if time_values[0] == "-": print_value = "DNS"
         elif time_values[1] == "-": print_value = "DNF"
+        elif time_values[0] == "--" or time_values[1] == "--": print_value = "No log"
         else:
             print_value = time_values[1] - time_values[0]
             full_timings[benchmark_id] = print_value
