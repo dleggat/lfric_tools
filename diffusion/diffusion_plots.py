@@ -156,7 +156,7 @@ def within_limits(number,max,min):
     if number < max and number > min: return True
     return False
     
-def main(in_cube, max_timestep, locations, cubes_of_interest):
+def main(max_timestep, locations, cubes_of_interest):
 
  
     print(cubes_of_interest)
@@ -215,7 +215,7 @@ def main(in_cube, max_timestep, locations, cubes_of_interest):
         make_multiline_plot(temp,locations,{"half_levels":real_temp_level},plot_label)
 
 if __name__ == "__main__":
-    input_cube = "lfric_diag.nc"
+    in_cube = "lfric_diag.nc"
     cubes = iris.load(in_cube)
 
     print (cubes)
@@ -244,6 +244,6 @@ if __name__ == "__main__":
         "terminator":{"longitude": partial(within_limits, max=92., min=89.), "latitude": partial(within_limits, max=0., min=-3.)},
     }
     
-    main(input_cube, max_timestep, locations, cubes_of_interest)
+    main(max_timestep, locations, cubes_of_interest)
 
     
