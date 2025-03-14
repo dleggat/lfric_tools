@@ -46,11 +46,11 @@ def plot_dtheta_trace(cube,coords,label,n_timesteps):
         z_points_ref = "half_levels"
     z_points = cube_single_node.coord(z_points_ref).points
     
-    
+    data = cube_single_node.data[:,:,0]
     _p0 = ax.pcolormesh(
         t_points,
         z_points,
-        cube_single_node.data[tslice,...].T
+        data[tslice,...].T
     )
 
     ax.set_title(f"{label}")
@@ -132,7 +132,8 @@ def make_multiline_plot(cube, locations, layers, plot_label):
     for location_name,location in locations.items():
         print(location_name)
         cube_slimmed = cube.extract(iris.Constraint(**location,**layers))
-        plt.plot(cube_slimmed.data.T, label=location_name)
+        data = cube_slimmed.data[:,0]
+        plt.plot(data, label=location_name)
 
 
     ax.set_title(plot_label)
